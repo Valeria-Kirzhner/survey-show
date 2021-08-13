@@ -15,7 +15,7 @@ accessToken =>{
 }
 ));
 
-
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email']})); // oauth flow managed by passport, google is the given strategy name
 
 const PORT = process.env.PORT || 5000;// the port heroku is pretent to provide or 5000 for the local.
 app.listen(PORT);
