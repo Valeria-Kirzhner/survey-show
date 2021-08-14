@@ -7,3 +7,5 @@ const userSchema = new Schema({
 
 });
 
+//  these is creating a new collection 'users' if the new record match the userSchema. It is not owerwrite it self in next time 
+mongoose.model('users', userSchema);
