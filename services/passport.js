@@ -12,8 +12,17 @@ passport.use( new GoogleStrategy({ // google strategy response differently in us
     callbackURL: '/auth/google/callback'    // where should google redirect the user next.
 }, 
 (accessToken, refreshToken, profile, done) => {
+    User.findOne({ googleId : profile.id })// check if these user already saved in the db.
+    .then( ( existingUser ) => { // this is a chaining of what happend next if some saved user was found. I use this method becouse it async request. In case no user was found the (existingUser) will be equal to nall.
+        
+        if( existingUser ){
+            // if the user already exist ( == true )
 
-    new User({ googleId: profile.id  }).save(); 
+        } else {
+            // if i don't have a user record with the given profile.id ( == false ) so make a new record. 
+            new User({ googleId: profile.id  }).save(); // create new User collection
+        }
+    })
 
 }
 ));
