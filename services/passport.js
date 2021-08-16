@@ -17,10 +17,14 @@ passport.use( new GoogleStrategy({ // google strategy response differently in us
         
         if( existingUser ){
             // if the user already exist ( == true )
+            done(null, existingUser);//  this done is for the google proccess of authentication. The null argument says that there is no errors, the second argument is if i have some problem or error, so I provide the found user in these argument
 
         } else {
             // if i don't have a user record with the given profile.id ( == false ) so make a new record. 
-            new User({ googleId: profile.id  }).save(); // create new User collection
+            new User({ googleId: profile.id  })
+            .save() // create new User collection
+            .then( user => done ( null, user ));//  to be sure that the user is saved, becouse of the async request - i am chained the 'then' function that also have firs argument as null that means 'no errors', and second argument is the saved user just a sacond ago.
+
         }
     })
 
