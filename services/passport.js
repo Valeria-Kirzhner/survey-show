@@ -5,6 +5,10 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+    done(null, user.id);// firs argument is for errors in case they will be. user.id = mongodb auto givven id.
+});
+
 // passport configuration
 passport.use( new GoogleStrategy({ // google strategy response differently in use of the two requests (first and second) becouse it checks if the CODE is attached or not.
     clientID: keys.googleClientID,
