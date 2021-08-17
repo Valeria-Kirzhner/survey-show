@@ -11,12 +11,16 @@ mongoose.connect(keys.mongoURI);
 const app = express();
 
 app.use(
-    cookieSession({
+    cookieSession({ //  configurations for the installed library :
 
         maxAge: 30 * 24 * 60 * 60 * 1000,// 30 days till the cookie expired
-        keys: [keys.cookieKey]
+        keys: [keys.cookieKey]  // the key is hiden for secure. This is an array becouse cookieSession is allow us to use multiple set of keys.
     })
-)
+);
+
+// say pasport to use cookies
+app.use(passport.initialize());
+app.use(passport.session()); 
 
 require('./routes/auth')(app); // authRoutes return an arrow function . The (app) is an argument that immidiately calls the module.export function that wrap the rautes and they need the conection with express.
 
