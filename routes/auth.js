@@ -19,7 +19,7 @@ app.get('/api/current_user', (req, res) => {
 app.get('/api/logout', ( req, res ) => {
 
     req.logout();// these request turns to passport and kill the token.
-    res.send( req.user ); // the prove
+    res.send( req.user ); // the prove - if it was deleted it will not be show in the browser.
 });
 
 
