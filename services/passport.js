@@ -5,8 +5,17 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users');
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);// firs argument is for errors in case they will be. user.id = mongodb auto givven id.
+
+passport.serializeUser(( user, done ) => {
+    done(null, user.id);// firs argument is for errors in case they will be. user.id = mongodb auto givven id which I need to put as a token in the cookies.
+});
+
+passport.deserializeUser(( id, done ) => {// the id is the cookie token, and the done function is the to make sure that I successfuly turnet the id back to recognized user in the db. 
+   
+    User.findById(id)
+    .then( user => {// becouse the search request is async function, to check if the request done succesfuly I chained then function.
+        done( null, user );// firs argument is for errors in case they will be. 
+    });
 });
 
 // passport configuration
