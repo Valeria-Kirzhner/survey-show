@@ -8,7 +8,7 @@ require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
 
-const app = express();
+const app = express();   // each time I use app. it is a middlewarec- means on each entering request the middlewere will work before it sent out to route handlers.
 
 app.use(
     cookieSession({ //  configurations for the installed library :
