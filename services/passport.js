@@ -28,7 +28,8 @@ passport.use( new GoogleStrategy({    //  google strategy response differently i
     
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'    //   where should google redirect the user next.
+    callbackURL: '/auth/google/callback',   //   where should google redirect the user next.
+    proxy: true // these is becouse google strategy couse a problem in the browser by thinking that the protocol is not protected (http). 
 }, 
 (accessToken, refreshToken, profile, done) => {
 
