@@ -1,4 +1,4 @@
-// figure out what set of credentials to return
+// Figure out what set of credentials to return
 
 if ( process.env.NODE_ENV === 'production' ) {  //  if in production - return production set of keys
 
