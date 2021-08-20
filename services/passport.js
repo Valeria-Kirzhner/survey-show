@@ -24,29 +24,27 @@ passport.deserializeUser(( id, done ) => {    // the id is the cookie token, and
 });
 
 // passport configuration
-passport.use( new GoogleStrategy({    //  google strategy response differently in use of the two requests (first and second) becouse it checks if the CODE is attached or not.
+passport.use( new GoogleStrategy({    //google strategy response differently in use of the two requests (first and second) becouse it checks if the CODE is attached or not.
     
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback',   //   where should google redirect the user next.
+    callbackURL: '/auth/google/callback',   //where should google redirect the user next.
     proxy: true // these is becouse google strategy couse a problem in the browser by thinking that the protocol is not protected (http). 
 }, 
-(accessToken, refreshToken, profile, done) => {
+async (accessToken, refreshToken, profile, done) => {
 
-    User.findOne({ googleId : profile.id })     //    check if these user already saved in the db.
-    .then( ( existingUser ) => {      //   this is a chaining of what happend next if some saved user was found. I use this method becouse it async request. In case no user was found the (existingUser) will be equal to nall.
-        
-        if( existingUser ){     //  if the user already exist ( == true )
+  const existingUser =  await User.findOne({ googleId : profile.id })   //check if these user already saved in the db, in case no user was found the existingUser will be equal to null.
+
+    if( existingUser ){   //if user already exist ( == true )
                                                 
-            done(null, existingUser);   //  this done is for the google proccess of authentication. The null argument says that there is no errors, the second argument is if i have some problem or error, so I provide the found user in these argument
+        done(null, existingUser);  //the done is for the google proccess of authentication, null argument says that there are no errors, the second argument is if I have error, so I provide the found user in these argument.
 
-        } else {      //     if i don't have a user record with the given profile.id ( == false ) so make a new record. 
-            new User({ googleId: profile.id  })
-            .save()     //      create new User collection
-            .then( user => done ( null, user ));    //  to be sure that the user is saved, becouse of the async request - i am chained the 'then' function that also have firs argument as null that means 'no errors', and second argument is the saved user just a sacond ago.
+    } else {  //if I don't have a user record with the given profile.id ( == false ) then make a new record. 
+        
+        const user = await new User({ googleId: profile.id }).save()
+    
+        done(null, user)   //to be sure that the user is saved here also have firs argument as null that means 'no errors', and second argument is the saved user just a sacond ago.
 
-        }
-    })
-
+    }
 }
 ));
