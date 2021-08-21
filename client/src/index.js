@@ -8,5 +8,5 @@ import App from './components/App';
 const store = createStore(()=> [] , {}, applyMiddleware()); // the 1 argument is all the reducers, the 2 argument is the starting/initial state of the app - this more for server side rendering which is not in my case,  
 
 ReactDOM.render(
-< Provider store={store}> < App /> </Provider>,
+< Provider store={store}> < App /> </Provider>,// the Provider is a react component that news how to read changes from our redux store. Any gets some new states produced inside of it, The provider will inform all of its children components.
 document.querySelector('#root')); // ReactDom render the root component that handle all the components. The '#root' you can found in public/index.html
