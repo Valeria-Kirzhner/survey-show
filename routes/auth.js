@@ -10,6 +10,8 @@ passport.authenticate('google', { scope: ['profile', 'email']}));
 // the second request - that would hold by passport google strategy this time would had the CODE. These andpoind would be redirect by google itself.
 app.get('/auth/google/callback', passport.authenticate('google'));
 
+//if the person who is making the request here is signed into the application this route will respond back with the model represented the person who has signed it.
+
 app.get('/api/current_user', (req, res) => {
      
     res.send(req.user);
