@@ -12,7 +12,7 @@ const Landing = () => <h2>Landing</h2>;
 class App extends Component{
 
     componentDidMount () {
-
+        this.props.fetchUser();// fetchUser = action creator 
     }
 
     render () {
@@ -35,4 +35,4 @@ class App extends Component{
    };
 };
 // coonect is a tool to connect between the hook - on did mount and redux store.
-export default connect(null, actions ) (App);// The first argument of connect, is reserved for the map state to prop's arguments which i woudn't use. And the second arg is * imported actions.
+export default connect(null, actions )(App);// The first argument of connect, is reserved for the map state to prop's arguments which i woudn't use. And the second arg is * imported actions.

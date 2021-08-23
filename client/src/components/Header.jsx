@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Header extends Component {
     state = {  }
@@ -17,5 +18,12 @@ class Header extends Component {
          );
     }
 }
- 
-export default Header;
+
+// object that returned to the Header component as props
+function mapStateToProps ({ auth }){
+
+  return { auth }; // reducers/index.js
+
+}
+
+export default connect( mapStateToProps )( Header );// connection between redux state and rect 
