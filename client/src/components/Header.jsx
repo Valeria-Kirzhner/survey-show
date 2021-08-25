@@ -3,16 +3,30 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
     state = {  }
-    render() { 
-      console.log(this.props);
-        return ( 
 
-            <nav>
+    renderContent(){
+      switch (this.props.auth){
+
+        case null:
+          return null;
+        case false:
+          return <li> <a href="/auth/google ">Login With Google</a></li>;
+        default:
+          return <li><a href="/">Logout</a></li>;
+
+      }
+    }
+
+    render() { 
+
+      return ( 
+
+          <nav>
             <div className="nav-wrapper">
               <a href="/" className="brand-logo">Survey Show</a>
-              <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><a href="/">Login With Google</a></li>
-              </ul>
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    {this.renderContent()}      
+                </ul>
             </div>
           </nav>
                 
