@@ -1,6 +1,9 @@
 import { FETCH_USER } from "../actions/types";
 
 const authReducer = function (state = null, action) {// for now = {} becouse it need to be returned and i don't wan't it to be undifiend
+
+    console.log(action);
+
     switch (action.type) {
 
         case FETCH_USER:

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 class Header extends Component {
     state = {  }
     render() { 
+      console.log(this.props);
         return ( 
 
             <nav>
